@@ -1,1 +1,3 @@
+org\openmrs\module\customreport\web\controller\UserWiseBillingReportController.class
 org\openmrs\module\customreport\web\controller\CustomReportManageController.class
+org\openmrs\module\report\web\controller\ajax\AjaxController.class
