@@ -13,11 +13,14 @@
  */
 package org.openmrs.module.customreport.api.impl;
 
+import java.util.List;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.APIException;
 import org.openmrs.module.customreport.api.CustomReportService;
 import org.openmrs.module.customreport.api.db.CustomReportDAO;
+import org.openmrs.module.customreport.model.UserWiseBillingReport;
 
 /**
  * It is a default implementation of {@link CustomReportService}.
@@ -41,4 +44,10 @@ public class CustomReportServiceImpl extends BaseOpenmrsService implements Custo
     public CustomReportDAO getDao() {
 	    return dao;
     }
+    
+       @Override
+		public List<UserWiseBillingReport> getUserWiseBillingReport(String userName,String sDate,String eDate) throws APIException {
+			// TODO Auto-generated method stub
+			return dao.getUserWiseBillingReport(userName,sDate,eDate);
+		}
 }

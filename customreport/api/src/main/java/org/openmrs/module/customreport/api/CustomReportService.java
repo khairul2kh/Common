@@ -13,7 +13,10 @@
  */
 package org.openmrs.module.customreport.api;
 
+import java.util.List;
+import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.module.customreport.model.UserWiseBillingReport;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -33,4 +36,6 @@ public interface CustomReportService extends OpenmrsService {
 	 * Add service methods here
 	 * 
 	 */
+    
+     public List<UserWiseBillingReport> getUserWiseBillingReport(String userName,String sDate,String eDate) throws APIException;
 }

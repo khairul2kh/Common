@@ -13,12 +13,16 @@
  */
 package org.openmrs.module.customreport.api.db;
 
+import java.util.List;
 import org.openmrs.module.customreport.api.CustomReportService;
+import org.openmrs.module.customreport.model.UserWiseBillingReport;
 
 /**
  *  Database methods for {@link CustomReportService}.
  */
 public interface CustomReportDAO {
+
+    public List<UserWiseBillingReport> getUserWiseBillingReport(String userName, String sDate, String eDate);
 	
 	/*
 	 * Add DAO methods here
