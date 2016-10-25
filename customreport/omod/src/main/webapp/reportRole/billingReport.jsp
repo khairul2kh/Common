@@ -26,12 +26,11 @@
     jQuery(document).ready(function() {
         jQuery('#eDate, #sDate').datepicker({yearRange: 'c-30:c+30', dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true});
 
-
+        $("#department").val('Select 0');
         document.getElementById('selectedUserList').ondblclick = function() {
             this.options[this.selectedIndex].remove();
         };
     });
-
 
     function callAutoComplete() {
 
@@ -59,8 +58,6 @@
         var arrayValues = $("#selectedUserList > option").map(function() {
             return this.text;
         }).get();
-        // alert(arrayValues);
-
 
         var sDate = jQuery('#sDate').val();
         var eDate = jQuery('#eDate').val();
@@ -86,15 +83,12 @@
                 selectedDepartment: selectedDepartment
             }),
             success: function(data) {
-                //alert("ss");
-                // jQuery("#drugQuantity").val(data);		
-                //  alert(data);
                 jQuery("#patientReport").html(data);
                 jQuery('#sDate').val("");
                 jQuery('#eDate').val("");
 
                 $('#selectedUserList option[value!="jQuery Reference"]').remove();// remove all but not jQuery Referendce
-                //alert(x);
+                $("#department").val('Select 0');
             },
             error: function() {
                 alert("ERROR:");
@@ -103,10 +97,7 @@
 
     }
 
-</script> 
 
-
-<script type="text/javascript">
     $(function() {
         var stringArray = new Array();
     <c:forEach var="userName" items="${userList}" varStatus="status">
@@ -157,168 +148,72 @@
         return true;
     }
 
-
-    //https://forums.digitalpoint.com/threads/javascript-form-validation-prevent-duplicate-entries-across-multiple-drop-downs.1374345/
-
-
-//var itemExists = false;
-    //$("#selectedUserList").each(function() {
-    //alert($(this).text());
-    // if ($(this).text() == $.trim(label)) {
-
-    // itemExists = true;
-    //}
-    // });
-
-    //if (!itemExists) {
-    // $("#selectedUserList").append('<option value="' + value + '">' + label + '</option>'); // sending data to the select box
-    //  }else{
-    //  alert('Item already exists');
-    ///}
-</script>
+</script> 
 
 
-<center><div class="boxHeader1">  <h2>Search Report</h2></div></center>
+<center><div class="boxHeader1">  <h3>Multi User Collected Amount Report</h3></div></center>
 <div class="box1">
+    <div class ="mainContent">
+        <div class="leftDiv">
 
-<div class="leftDiv">
+            <span style="font-size:14px;  font-weight: bold;" > Search Users &nbsp;&nbsp;&nbsp;:</span> 
+            &nbsp;<input class="inputField" id="tags" style="width: 300px"  placeholder="Please Enter User Name "/><br>
 
- <span style="font-size:14px;  font-weight: bold;" > Search Users : </span> 
-    <input class="inputField" id="tags" style="width: 300px"  placeholder="Please Enter User Name "/><br>
-    <!--	<select
-           class="userList"
-           id="selectedUserList"  
-           name="selectedUserList" multiple="multiple"
-           placeholder="Selected User Name "
-           style="min-width:150px;"
-           >
-   
-       </select>
-       style="width: 400px" -->
-	   
-	    <select
-        class="userList"
-        id="selectedUserList"  
-        name="selectedUserList" multiple="multiple"
-        placeholder="Selected User Name "
-        style="min-width:300px;margin-left: 122px"
-        >
-    </select>
+            <label style="font-size:14px;  font-weight: bold;" >Selected Users :</label>
+            <select
+                class="userList"
+                id="selectedUserList"  
+                name="selectedUserList" multiple="multiple"
+                placeholder="Selected User Name "
+                style="min-width:300px;margin-left: 0px"
+                >
+            </select>
 
+        </div>
+        <div class="rightDiv">
+
+            &nbsp;&nbsp;&nbsp;<span style="font-size:14px; font-weight: bold;"> Start Date :</span> 
+            <input class="inputField" type="text" placeholder="Please Enter Start Date " id="sDate" name="sDate" style="width:250px;"/> &nbsp;&nbsp;&nbsp;
+
+            <span style="font-size:14px; font-weight: bold;"> End Date &nbsp; : </span>  
+            <input class="inputField" type="text" placeholder="Please Enter End Date " id="eDate" name="eDate" style="width:250px;"/><br>
+
+            &nbsp;&nbsp;&nbsp; <span style="font-size:14px; font-weight: bold;"> Department &nbsp; : </span>
+            <select id="department" class="">
+                <option selected>Select</option>
+                <c:forEach var="item" items="${depertmentList}">
+                    <option>${item.name}</option>
+                </c:forEach>
+
+            </select>
+            <input  type="button" value="Get View" onclick="getPatientReport()" class="bu-normal" style="margin-top:15px; margin-left:20px;"  /> &nbsp;
+            <input type="button" class="bu-normal"  value="Print" onclick="printReport()"/><br><br><br>
+        </div>
+    </div>
 </div>
-<div class="rightDiv">
-
-   
-
-
-    &nbsp;&nbsp;&nbsp;<span style="font-size:14px; font-weight: bold;"> Start Date : </span> 
-    <input class="inputField" type="text" placeholder="Please Enter Start Date " id="sDate" name="sDate" style="width:250px;"/> &nbsp;&nbsp;&nbsp;
-
-    <span style="font-size:14px; font-weight: bold;"> End Date &nbsp; : </span>  
-    <input class="inputField" type="text" placeholder="Please Enter End Date " id="eDate" name="eDate" style="width:250px;"/>
-
-    <span style="font-size:14px; font-weight: bold;"> Department &nbsp; : </span>
-    <select id="department" class="">
-        <option selected>Select</option>
-        <c:forEach var="item" items="${depertmentList}">
-            <option>${item.name}</option>
-        </c:forEach>
-
-    </select>
-
-
-
-   
-
-    <input  type="button" value="Get View" onclick="getPatientReport()" class="bu-normal" style="margin-top:15px; margin-left:20px;"  /> &nbsp;
-    <input type="button" class="bu-normal"  value="Print" onclick="printReport()"/><br><br><br>
-</div>
-</div>
-
 <div id="patientReport">
 
 </div>
-<!--
-<div id="reportPrintArea">
-    <center><h2>User Wise Daily Billing Report</h2>
-
-        <span><h5>Start Date:  <b>${startDate}</b> &nbsp;&nbsp;&nbsp; End Date: <b>${endDate} </b></h5></span>
-
-    </center><br>
-    
-
-    <center><table border="1px"  style="width:90%;"  class="table_data ">
-            <thead>
-                <tr>
-                    <th style="text-align: center;">SL NO.</th>
-                    <th style="text-align: center;">Username</th>
-                    <th style="text-align: center;">Total Patient</th>
-                    <th style="text-align: center;">Free Bill</th>
-                    <th style="text-align: center;">Total Taka</th>
-                </tr>
-            </thead>
-<c:set var="totalAmout" value="${0}"/>
-<c:forEach items="${result}" var="report" varStatus="varStatus">
-    <tr align="center" class='${varStatus.index % 2 == 0 ? "oddRow" : "evenRow" } '>
-
-
-        <td><c:out value="${varStatus.count }"/></td>	
-        <td>${report.userName}</td>
-        <td>${report.totalPatient}</td>
-        <td>
-    ${report.freeBill}
-</td>
-
-<td>${report.totalTaka}</td>
-
-    <c:set var="totalAmout" value="${totalAmout + report.totalTaka}"/>
-</tr>
-</c:forEach>
-<tr align="center"  >
-    <td></td>	
-    <td></td>
-    <td></td>
-    <td>
-        <h4> Total amount</h4>
-    </td>
-    <td><h4><c:out value="${totalAmout }" /></h4></td>
-</tr>
-</table>
-</center>
-
-</div>
--->
 
 <style>
     #patientReport{
         margin-top: 30px; 
         padding-bottom: 18px;
+        //width:70%;
     } 
 
     .mainContent{
-        //  background-color:red;
         margin: auto;
-        width: 100%;
-        height:200px;
-        // border: 3px solid #73AD21;
-        // padding: 10px;
+        width: 90%;
     } 
-	.box1{
-		//background-color:orange;
-		//height: 600px;
-		width:100%;
-	}
+    .box1{
+        width:100%;
+    }
     .leftDiv{
-        // background-color:blue;
         float:left;
-        //  margin-right: 50%;
     }
     .rightDiv{
-         // background-color:green;
-       // float:right;
         margin-left: 70px;
-	// padding-left:20px;
-	//width:100%;
     }
 
     .inputField  { 
@@ -354,62 +249,14 @@
     }
 
     .boxHeader1{
-        height:80px;
-		width:100%;
+        height:70px;
+        width:100%;
         background-color: #eee;
 
     }
-	
-	
+
+
 </style>
-
-<!-- 
-
-<div class="container">
-  <h2>User wise daily reports</h2>
-
-    <div class="form-group">
-      <label for="tags">Search Users :</label>
-       <input class="form-control" id="tags"   placeholder="Please Enter User Name "/>
-    </div>
-	
-	
-   <div class="form-group">
-   
-      <label for="sel2">Selected users:</label>
-      <select multiple class="form-control" id="selectedUserList" style="height:100px">
-  
-      </select>
-   </div>
-   
-     <div class="form-group">
-      <label for="sDate">Start Date : </label>
-      <input type="text" class="form-control" id="sDate" placeholder="Please Enter Start Date ">
-    </div>
-	
-	<div class="form-group">
-      <label for="eDate">End Date : </label>
-      <input type="text" class="form-control" id="eDate" placeholder="Please Enter End Date ">
-    </div>
-	
-	  <div class="form-group">
-	  <label >Select Department:</label>
-      <select class="form-control" id="department">
-      <option selected>Select</option>
-	         <c:forEach var="item" items="${depertmentList}">
-            <option>${item.name}</option>
-        </c:forEach>
-      </select>
-	</div>
-
-	
-
-  
-    <button type="button" class="btn btn-default"  onclick="getPatientReport()">Submit</button>
-	<button type="button" class="btn btn-default"   onclick="printReport()">Print</button>
-
-</div>
--->
 <%@ include file="/WEB-INF/template/footer.jsp" %>
 
 
