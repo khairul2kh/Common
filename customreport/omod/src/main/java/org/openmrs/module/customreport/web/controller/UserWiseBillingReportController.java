@@ -39,6 +39,7 @@ public class UserWiseBillingReportController {
         List<ConceptAnswer> serviceConceptList = (serviceOrderConcept != null ? new ArrayList<ConceptAnswer>(serviceOrderConcept.getAnswers()) : null);
         List<ConceptName> depertmentList = new ArrayList();
         
+        if(serviceConceptList!=null && !serviceConceptList.isEmpty()){
         for (ConceptAnswer conceptAnswer : serviceConceptList) {
             Collection<ConceptAnswer> individualConceptAnswers = conceptAnswer.getAnswerConcept().getAnswers();
             for (ConceptAnswer con : individualConceptAnswers) {
@@ -47,6 +48,9 @@ public class UserWiseBillingReportController {
             }
            // System.out.println("Ans concept name: "+conceptAnswer.getAnswerConcept().getName());
         }
+        }
+        
+        
         model.addAttribute("depertmentList", depertmentList);
         return "/module/customreport/reportRole/billingReport";
     }

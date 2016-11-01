@@ -65,7 +65,7 @@ public class HibernateCustomReportDAO implements CustomReportDAO {
                 + "\n"
                 + "INNER JOIN users AS u ON bpsb.`creator`=u.`user_id`\n"
                 + "INNER JOIN `person_name`AS pn ON pn.`person_id`=u.`person_id`\n"
-                + "WHERE bpsbi.voided='0' AND "+ formatedString +" AND bpsb.`created_date` BETWEEN '" + sDate + "' AND '" + eDate + "'\n"
+                + "WHERE bpsbi.voided='0' AND "+ formatedString +" AND bpsbi.`created_date` BETWEEN '" + sDate + "' AND '" + eDate + "'\n"
                 + "GROUP BY u.`username`");
 
         List<Object[]> rows = query.list();

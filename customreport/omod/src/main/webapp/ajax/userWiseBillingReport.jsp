@@ -16,7 +16,7 @@
                 <tr>
                     <th style="text-align: center;">SL NO.</th>
                     <th style="text-align: center;">Username</th>
-                    <th style="text-align: center;">Total Patient</th>
+                    <th style="text-align: center;">Total Tests</th>
                     <th style="text-align: center;">Free Bill</th>
                     <th style="text-align: center;">Total Taka</th>
                 </tr>
